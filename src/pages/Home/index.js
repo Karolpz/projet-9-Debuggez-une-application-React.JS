@@ -15,11 +15,9 @@ import { useData } from "../../contexts/DataContext";
 const Page = () => {
   const { data, error } = useData()
 
-  const lastEvent = data?.events.sort((evtA, evtB) =>
+  const last = data?.events.sort((evtA, evtB) =>
     new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)[0]
   
-  console.log(lastEvent);
-
   return (
     <>
       {error && <div>An error occured</div>}
@@ -34,7 +32,7 @@ const Page = () => {
             <section className="SliderContainer">
               <Slider />
             </section>
-            <section className="ServicesContainer">
+            <section className="ServicesContainer" id="nos-services">
               <h2 className="Title">Nos services</h2>
               <p>
                 Nous organisons des événements sur mesure partout dans le monde
@@ -65,11 +63,11 @@ const Page = () => {
                 </ServiceCard>
               </div>
             </section>
-            <section className="EventsContainer">
+            <section className="EventsContainer" id="nos-realisations">
               <h2 className="Title">Nos réalisations</h2>
               <EventList />
             </section>
-            <section className="PeoplesContainer">
+            <section className="PeoplesContainer" id="notre-equipe">
               <h2 className="Title">Notre équipe</h2>
               <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
               <div className="ListContainer">
@@ -131,9 +129,9 @@ const Page = () => {
             <div className="col presta">
               <h3>Notre derniére prestation</h3>
               <EventCard
-                imageSrc={lastEvent.cover}
-                title={lastEvent.title}
-                date={new Date(lastEvent.date)}
+                imageSrc={last?.cover}
+                title={last?.title}
+                date={new Date(last?.date)}
                 small
                 label="boom"
               />

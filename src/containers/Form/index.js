@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
@@ -8,17 +8,18 @@ const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 500)
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const dataForm = useRef()
 
   const sendContact = useCallback(
     async (evt) => {
       evt.preventDefault();
       setSending(true);
-      setIsSubmitted(true)
       // We try to call mockContactApi
       try {
         await mockContactApi();
         setSending(false);
+        onSuccess();
+        dataForm.current.reset();
       } catch (err) {
         setSending(false);
         onError(err);
@@ -26,9 +27,10 @@ const Form = ({ onSuccess, onError }) => {
     },
     [onSuccess, onError]
   );
+  
 
   return (
-    <form onSubmit={sendContact}>
+    <form onSubmit={sendContact} ref={dataForm}>
       <div className="row">
         <div className="col">
           <Field placeholder="" label="Nom" />
@@ -55,7 +57,6 @@ const Form = ({ onSuccess, onError }) => {
           />
         </div>
       </div>
-      {isSubmitted && <p>Message envoyé avec succès !</p>}
     </form>
   );
 };
