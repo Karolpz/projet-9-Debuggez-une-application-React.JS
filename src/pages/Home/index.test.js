@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Home from "./index";
+
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -29,16 +30,25 @@ describe("When Form is created", () => {
 
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
+  it("a list of events is displayed", async () => {
+    render(<Home />)
+    const events = await waitFor(() => screen.findByTestId("events-container"));
+    expect(events.children.length).toBeGreaterThan(0)
+    console.log("Events container:", events);
+    console.log("Children count:", events.children.length)
   })
   it("a list a people is displayed", () => {
-    // to implement
+    render(<Home />)
+    const peopleCards = screen.getAllByTestId("people-card")
+    expect(peopleCards.length).toBeGreaterThan(0)
   })
   it("a footer is displayed", () => {
-    // to implement
+    render(<Home />)
+    const footer = screen.getByRole('contentinfo')
+    expect(footer).toBeInTheDocument();
   })
-  it("an event card, with the last event, is displayed", () => {
-    // to implement
-  })
-});
+
+  it("an event card, with the last event, is displayed", async () => {
+    
+})
+})
