@@ -31,29 +31,38 @@ describe("When Form is created", () => {
 const mockData = {
   events: [
     {
-      id : 1,
-      title: "World economic forum",
-      description:
-        "Oeuvre à la coopération entre le secteur public et le privé.",
+      id: 1,
+      type: "conférence",
       date: "2022-02-29T20:28:45.744Z",
-      cover: "/images/evangeline-shaw-nwLTVwb7DbU-unsplash1.png",
+      title: "User&product MixUsers",
+      cover: "/images/alexandre-pellaes-6vAjp0pscX0-unsplash.png",
+      description: "Présentation des nouveaux usages UX.",
+      nb_guesses: 900,
+      periode: "14-15-16 Avril",
+      prestations: [
+        "1 espace d’exposition",
+        "1 scéne principale",
+        "1 espace de restaurations"
+      ]
     },
     {
-      id : 2,
-      title: "World Gaming Day",
-      description: "Evenement mondial autour du gaming",
-      date: "2022-03-29T20:28:45.744Z",
-      cover: "/images/evangeline-shaw-nwLTVwb7DbU-unsplash1.png",
-    },
-    {
-      id : 3,
-      title: "World Farming Day",
-      description: "Evenement mondial autour de la ferme",
-      date: "2022-01-29T20:28:45.744Z",
-      cover: "/images/evangeline-shaw-nwLTVwb7DbU-unsplash1.png",
-    },
+      id: 2,
+      type: "expérience digitale",
+      date: "2022-05-29T20:28:45.744Z",
+      title: "#DigitonPARIS MOCK",
+      cover: "/images/charlesdeluvio-wn7dOzUh3Rs-unsplash.png",
+      description: "Présentation des outils analytics aux professionnels du secteur ",
+      nb_guesses: 1300,
+      periode: "24-25-26 Février",
+      prestations: [
+        "1 espace d’exposition",
+        "1 scéne principale",
+        "1 site web dédié"
+      ]
+    }
   ],
-};
+  focus: []
+}
 
 
 describe("When a page is created", () => {
@@ -72,13 +81,18 @@ describe("When a page is created", () => {
     const footer = screen.getByRole('contentinfo')
     expect(footer).toBeInTheDocument();
   })
-    it("an event card, with the last event, is displayed", () => {
-      render(<Home />)
-      const lastEvent = screen.getByTestId("last-event");
-      expect(lastEvent.children.length).toBeGreaterThan(1);
+  it("an event card, with the last event, is displayed", async() => {
+    api.loadData = jest.fn().mockReturnValue(mockData);
+    render(
+      <DataProvider>
+        <Home />
+      </DataProvider>)
+    const footer = await screen.findByRole("contentinfo");
+    expect(footer).toHaveTextContent("#DigitonPARIS MOCK");
+    expect(footer).toHaveTextContent("mai");
 
-    })
   })
+})
 
 
 
