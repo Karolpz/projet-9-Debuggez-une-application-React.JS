@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Home from "./index";
-
+import { api, DataProvider } from "../../contexts/DataContext";
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -28,14 +28,39 @@ describe("When Form is created", () => {
 
 });
 
+const mockData = {
+  events: [
+    {
+      id : 1,
+      title: "World economic forum",
+      description:
+        "Oeuvre à la coopération entre le secteur public et le privé.",
+      date: "2022-02-29T20:28:45.744Z",
+      cover: "/images/evangeline-shaw-nwLTVwb7DbU-unsplash1.png",
+    },
+    {
+      id : 2,
+      title: "World Gaming Day",
+      description: "Evenement mondial autour du gaming",
+      date: "2022-03-29T20:28:45.744Z",
+      cover: "/images/evangeline-shaw-nwLTVwb7DbU-unsplash1.png",
+    },
+    {
+      id : 3,
+      title: "World Farming Day",
+      description: "Evenement mondial autour de la ferme",
+      date: "2022-01-29T20:28:45.744Z",
+      cover: "/images/evangeline-shaw-nwLTVwb7DbU-unsplash1.png",
+    },
+  ],
+};
+
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", async () => {
+  it("a list of events is displayed", () => {
     render(<Home />)
-    const events = await waitFor(() => screen.findByTestId("events-container"));
-    expect(events.children.length).toBeGreaterThan(0)
-    console.log("Events container:", events);
-    console.log("Children count:", events.children.length)
+    const events = screen.getByTestId("events-container");
+    expect(events.children.length).toBeGreaterThan(1);
   })
   it("a list a people is displayed", () => {
     render(<Home />)
@@ -47,8 +72,17 @@ describe("When a page is created", () => {
     const footer = screen.getByRole('contentinfo')
     expect(footer).toBeInTheDocument();
   })
+    it("an event card, with the last event, is displayed", () => {
+      render(<Home />)
+      const lastEvent = screen.getByTestId("last-event");
+      expect(lastEvent.children.length).toBeGreaterThan(1);
 
-  it("an event card, with the last event, is displayed", async () => {
-    
-})
-})
+    })
+  })
+
+
+
+
+
+
+

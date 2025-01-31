@@ -63,7 +63,7 @@
                   </ServiceCard>
                 </div>
               </section>
-              <section className="EventsContainer" id="nos-realisations">
+                <section className="EventsContainer" id="nos-realisations" data-testid="events-container">
                 <h2 className="Title">Nos réalisations</h2>
                 <EventList />
               </section>
@@ -126,10 +126,9 @@
               </div>
             </main>
             <footer className="row">
-                <div className="col presta">
+                <div className="col presta" data-testid="last-event">
                 <h3>Notre derniére prestation</h3>
                 <EventCard
-                data-testid ='last-event'
                   imageSrc={last?.cover}
                   title={last?.title}
                   date={new Date(last?.date)}

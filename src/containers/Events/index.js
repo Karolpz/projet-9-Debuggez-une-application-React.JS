@@ -45,7 +45,7 @@ return (
           onChange={(value) =>{
             changeType(value)}}
         />
-        <div id="events" className="ListContainer" data-testid ="events-container">
+        <div id="events" className="ListContainer" >
             {paginatedEvents.map((event) => (
             <Modal key={event.id} Content={<ModalEvent event={event} />}>
               {({ setIsOpened }) => (
