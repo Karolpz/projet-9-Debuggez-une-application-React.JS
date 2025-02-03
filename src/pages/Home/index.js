@@ -15,12 +15,12 @@
   const Page = () => {
     const { data, error } = useData()
 
-    const last = data?.events.sort((evtA, evtB) =>
-      new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)[0]
+    const last = data ? (data.events.sort((evtA, evtB) =>
+      new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)[0]) : []
 
     return (
       <>
-        {error && <div>An error occured</div>}
+        {error && <div>An error occured : {error.message}</div>}
         {data === null ? (
           "loading"
         ) : (

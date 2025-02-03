@@ -34,7 +34,7 @@ const pageNumber = Math.ceil((filteredEvents?.length || 0) / PER_PAGE);
 const typeList = new Set(data?.events.map((event) => event.type));
 return (
   <>
-    {error && <div>An error occured</div>}
+    {error && <div>An error occured {error.message}</div>}
     {data === null ? (
       "loading"
     ) : (

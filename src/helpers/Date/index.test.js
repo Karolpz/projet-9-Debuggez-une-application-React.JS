@@ -8,6 +8,9 @@ describe("Date helper", () => {
         it("the function return juillet for 2022-07-08 as date", () => {
             expect(getMonth(new Date("2022-07-08"))).toEqual("juillet")
         });
+        it("there is a typing error on the data", () => {
+            expect(getMonth(new Date("2022-077-08"))).toBeUndefined()
+        })
     });
 })
 

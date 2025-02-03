@@ -60,8 +60,7 @@ const mockData = {
         "1 site web dédié"
       ]
     }
-  ],
-  focus: []
+  ]
 }
 
 
@@ -90,7 +89,6 @@ describe("When a page is created", () => {
     const footer = await screen.findByRole("contentinfo");
     expect(footer).toHaveTextContent("#DigitonPARIS MOCK");
     expect(footer).toHaveTextContent("mai");
-
   })
 })
 
