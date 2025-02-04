@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "./index";
 import { api, DataProvider } from "../../contexts/DataContext";
 
@@ -68,7 +68,7 @@ describe("When a page is created", () => {
   it("a list of events is displayed", () => {
     render(<Home />)
     const events = screen.getByTestId("events-container");
-    expect(events.children.length).toBeGreaterThan(1);
+    expect(events.children.length).toBeGreaterThan(4);
   })
   it("a list a people is displayed", () => {
     render(<Home />)
