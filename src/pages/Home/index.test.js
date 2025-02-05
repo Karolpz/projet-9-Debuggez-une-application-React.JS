@@ -33,7 +33,7 @@ const mockData = {
     {
       id: 1,
       type: "conférence",
-      date: "2022-02-29T20:28:45.744Z",
+      date: "2022-02-27T20:28:45.744Z",
       title: "User&product MixUsers",
       cover: "/images/alexandre-pellaes-6vAjp0pscX0-unsplash.png",
       description: "Présentation des nouveaux usages UX.",
@@ -59,16 +59,22 @@ const mockData = {
         "1 scéne principale",
         "1 site web dédié"
       ]
-    }
+    },
   ]
 }
 
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    render(<Home />)
-    const events = screen.getByTestId("events-container");
-    expect(events.children.length).toBeGreaterThan(4);
+  it("a list of events is displayed", async () => {
+    api.loadData = jest.fn().mockReturnValue(mockData);
+    render(
+      <DataProvider>
+        <Home />
+      </DataProvider>)
+    const eventContainer = await screen.findByTestId("eventContainer")
+    expect(eventContainer).toHaveTextContent("#DigitonPARIS MOCK")
+    expect(eventContainer).toHaveTextContent("février")
+    expect(eventContainer.children.length).toBe(2)
   })
   it("a list a people is displayed", () => {
     render(<Home />)
@@ -80,7 +86,7 @@ describe("When a page is created", () => {
     const footer = screen.getByRole('contentinfo')
     expect(footer).toBeInTheDocument();
   })
-  it("an event card, with the last event, is displayed", async() => {
+  it("an event card, with the last event, is displayed", async () => {
     api.loadData = jest.fn().mockReturnValue(mockData);
     render(
       <DataProvider>
